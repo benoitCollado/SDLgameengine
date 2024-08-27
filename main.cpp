@@ -27,7 +27,7 @@ int main (int argc, const char * argv[]){
 
     if(frameDelay > frameTime){
       SDL_Delay(frameDelay - frameTime);
-    })
+    }
   }
 
   game->clean();

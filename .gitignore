@@ -1,0 +1,9 @@
+.nix
+.replit
+.ccls-cache
+.config
+.bin
+.o
+.toml
+\images
+.env

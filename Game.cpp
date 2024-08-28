@@ -1,8 +1,9 @@
 #include "Game.hpp"
+#include "GameObject.hpp"
 #include "TextureManager.hpp"
 
-SDL_Texture *playerText = nullptr;
-SDL_Rect srcR, destR;
+GameObject *player;
+GameObject *player2;
 
 Game::Game() {}
 Game::~Game() {}
@@ -25,12 +26,14 @@ void Game::init(const char *title, int posx, int posy, int width, int height,
       SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
       std::cout << "Renderer Created ... " << std::endl;
     }
-    
-    playerText = TextureManager::loadTexture("images/player.png", renderer);
+
+    // playerText = TextureManager::loadTexture("images/player.png", renderer);
     isRunning = true;
   } else {
     isRunning = false;
   }
+  player = new GameObject("images/player.png", renderer, 0, 0);
+  player2 = new GameObject("images/player.png", renderer, 64, 64);
 }
 
 void Game::handleEvents() {
@@ -47,15 +50,17 @@ void Game::handleEvents() {
 
 void Game::update() {
   count++;
-  destR.h = 32;
-  destR.w = 32;
+  player->update();
+  player2->update();
   std::cout << count << std::endl;
 }
 
 void Game::render() {
   SDL_RenderClear(renderer);
   // this is where we would add stuff to render
-  SDL_RenderCopy(renderer, playerText, NULL, &destR);
+  // SDL_RenderCopy(renderer, playerText, NULL, &destR);
+  player->render();
+  player2->render();
   SDL_RenderPresent(renderer);
 }
 

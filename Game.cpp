@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "TextureManager.hpp"
 
 SDL_Texture *playerText = nullptr;
 SDL_Rect srcR, destR;
@@ -24,10 +25,8 @@ void Game::init(const char *title, int posx, int posy, int width, int height,
       SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
       std::cout << "Renderer Created ... " << std::endl;
     }
-
-    SDL_Surface *tmpSurface = IMG_Load("images/player.png");
-    playerText = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-    SDL_FreeSurface(tmpSurface);
+    
+    playerText = TextureManager::loadTexture("images/player.png", renderer);
     isRunning = true;
   } else {
     isRunning = false;

@@ -10,7 +10,7 @@ int main (int argc, const char * argv[]){
   int frameTime;
   
   game = new Game();
-  game->init("New engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 400, 300, false);
+  game->init("New engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 480, 320, false);
   //mainloop
   while (game->running()){
     //handle any user input

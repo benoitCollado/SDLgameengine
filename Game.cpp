@@ -5,6 +5,8 @@
 GameObject *player;
 GameObject *player2;
 
+SDL_Renderer* Game::renderer = nullptr;
+
 Game::Game() {}
 Game::~Game() {}
 

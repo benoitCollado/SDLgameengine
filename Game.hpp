@@ -21,7 +21,7 @@ public:
 
   bool running();
 
-  static SDL_renderer* renderer;
+  static SDL_Renderer* renderer;
 
 private: 
   int count = 0;

@@ -34,8 +34,8 @@ void Game::init(const char *title, int posx, int posy, int width, int height,
   } else {
     isRunning = false;
   }
-  player = new GameObject("images/player.png", renderer, 0, 0);
-  player2 = new GameObject("images/player.png", renderer, 64, 64);
+  player = new GameObject("images/player.png", 0, 0);
+  player2 = new GameObject("images/player.png", 64, 64);
 }
 
 void Game::handleEvents() {

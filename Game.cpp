@@ -1,13 +1,18 @@
 #include "Game.hpp"
+#include "Components.hpp"
+#include "ECS.hpp"
 #include "GameObject.hpp"
-#include "TextureManager.hpp"
 #include "Map.hpp"
+#include "TextureManager.hpp"
 
 GameObject *player;
 GameObject *player2;
 Map *map;
 
-SDL_Renderer* Game::renderer = nullptr;
+SDL_Renderer *Game::renderer = nullptr;
+
+Manager manager;
+auto& newPlayer(manager.addEntity());
 
 Game::Game() {}
 Game::~Game() {}
@@ -36,10 +41,13 @@ void Game::init(const char *title, int posx, int posy, int width, int height,
   } else {
     isRunning = false;
   }
-  
+
   player = new GameObject("images/player.png", 0, 0);
   player2 = new GameObject("images/player.png", 64, 64);
   map = new Map();
+  newPlayer.addComponent<PositionComponent>();
+  newPlayer.getComponent<PositionComponent>();
+  std::cout << getComponentTypeID<PositionComponent>() << std::endl;
 }
 
 void Game::handleEvents() {
@@ -58,7 +66,10 @@ void Game::update() {
   count++;
   player->update();
   player2->update();
-  std::cout << count << std::endl;
+  manager.update();
+  /*std::cout<<newPlayer.getComponent<PositionComponent>().x() <<  " , " <<
+  newPlayer.getComponent<PositionComponent>().y() << std::endl; std::cout <<
+  count << std::endl;*/
 }
 
 void Game::render() {

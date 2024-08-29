@@ -1,18 +1,15 @@
 #include "Game.hpp"
-#include "Components.hpp"
-#include "ECS.hpp"
-#include "GameObject.hpp"
+#include "ECS/Components.hpp"
 #include "Map.hpp"
 #include "TextureManager.hpp"
 
-GameObject *player;
-GameObject *player2;
 Map *map;
 
 SDL_Renderer *Game::renderer = nullptr;
 
 Manager manager;
-auto& newPlayer(manager.addEntity());
+auto &player(manager.addEntity());
+PositionComponent *position;
 
 Game::Game() {}
 Game::~Game() {}
@@ -42,12 +39,12 @@ void Game::init(const char *title, int posx, int posy, int width, int height,
     isRunning = false;
   }
 
-  player = new GameObject("images/player.png", 0, 0);
-  player2 = new GameObject("images/player.png", 64, 64);
   map = new Map();
-  newPlayer.addComponent<PositionComponent>();
-  newPlayer.getComponent<PositionComponent>();
-  std::cout << getComponentTypeID<PositionComponent>() << std::endl;
+  player.addComponent<PositionComponent>(100,150);
+  position = &player.getComponent<PositionComponent>();
+  std::cout << position->x() << "," << position->y() << std::endl;
+  player.addComponent<SpriteComponent>("images/player.png");
+  std::cout << getComponentTypeID<SpriteComponent>() << std::endl;
 }
 
 void Game::handleEvents() {
@@ -64,9 +61,12 @@ void Game::handleEvents() {
 
 void Game::update() {
   count++;
-  player->update();
-  player2->update();
   manager.update();
+
+  if(player.getComponent<PositionComponent>().x() > 200){
+    player.getComponent<SpriteComponent>().setTexture("images/water.png");
+    player.getComponent<PositionComponent>().setPosition(50,50);
+  }
   /*std::cout<<newPlayer.getComponent<PositionComponent>().x() <<  " , " <<
   newPlayer.getComponent<PositionComponent>().y() << std::endl; std::cout <<
   count << std::endl;*/
@@ -76,9 +76,8 @@ void Game::render() {
   SDL_RenderClear(renderer);
   // this is where we would add stuff to render
   // SDL_RenderCopy(renderer, playerText, NULL, &destR);
-  map->drawMap();
-  player->render();
-  player2->render();
+   map->drawMap();
+  manager.draw();
   SDL_RenderPresent(renderer);
 }
 

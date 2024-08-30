@@ -2,7 +2,7 @@
 #define COMPONENTS_HPP
 
 #include "ECS.hpp"
-#include "PositionComponent.hpp"
+#include "TransformComponent.hpp"
 #include "SpriteComponent.hpp"
-
+#include "KeyboardController.hpp"
 #endif

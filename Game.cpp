@@ -6,6 +6,7 @@
 Map *map;
 
 SDL_Renderer *Game::renderer = nullptr;
+SDL_Event Game::event;
 
 Manager manager;
 auto &player(manager.addEntity());
@@ -39,13 +40,13 @@ void Game::init(const char *title, int posx, int posy, int width, int height,
   }
 
   map = new Map();
-  player.addComponent<TransformComponent>(100,150);
+  player.addComponent<TransformComponent>(100, 150);
   player.addComponent<SpriteComponent>("images/player.png");
-
+  player.addComponent<KeyboardController>();
 }
 
 void Game::handleEvents() {
-  SDL_Event event;
+  
   SDL_PollEvent(&event);
   switch (event.type) {
   case SDL_QUIT:
@@ -60,10 +61,6 @@ void Game::update() {
   count++;
   manager.update();
 
-  if(player.getComponent<TransformComponent>().x() > 200){
-    player.getComponent<SpriteComponent>().setTexture("images/water.png");
-    player.getComponent<TransformComponent>().setPosition(50,50);
-  }
   /*std::cout<<newPlayer.getComponent<PositionComponent>().x() <<  " , " <<
   newPlayer.getComponent<PositionComponent>().y() << std::endl; std::cout <<
   count << std::endl;*/
@@ -73,7 +70,7 @@ void Game::render() {
   SDL_RenderClear(renderer);
   // this is where we would add stuff to render
   // SDL_RenderCopy(renderer, playerText, NULL, &destR);
-   map->drawMap();
+  map->drawMap();
   manager.draw();
   SDL_RenderPresent(renderer);
 }

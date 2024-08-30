@@ -1,40 +1,50 @@
-#ifndef POSITIONCOMPONENT_HPP
-#define POSITIONCOMPONENT_HPP
+#ifndef TRANSFORMCOMPONENT_HPP
+#define TRANSFORMCOMPONENT_HPP
 #include "Components.hpp"
+#include "../Vector2D.hpp"
 
 
 class TransformComponent: public Component{
 
-private:
-  int x_pos;
-  int y_pos;
-
 public:
+
+  Vector2D position;
+  Vector2D velocity;
+
+  int speed = 3; 
+
+  
+
   TransformComponent(){
-    x_pos = 0;
-    y_pos = 0;
+    position.x = 0.0f;
+    position.y = 0.0f;
   }
 
-  TransformComponent(int x_init, int y_init){
+  TransformComponent(float x_init, float y_init){
     //std::cout << "PositionComponent constructor called" << std::endl;
     //std::cout << x_init << "," << y_init << std::endl;
-    x_pos = x_init;
-    y_pos = y_init;
+    position.x = x_init;
+    position.y = y_init;
   }
 
-  int x() {return x_pos;}
-  void x(int x_init) {x_pos = x_init;}
-  int y() {return y_pos;}
-  void y(int y_init) {y_pos = y_init;}
+  float x() {return position.x;}
+  void x(float x_init) {position.x = x_init;}
+  float y() {return position.y;}
+  void y(float y_init) {position.y = y_init;}
 
-  void setPosition(int x, int y){
-    x_pos = x;
-    y_pos = y;
+  void setPosition(float x, float y){
+    position.x = x;
+    position.y = y;
   }
 
   void update() override{
-    x_pos++;
-    y_pos++;
+    position.x += velocity.x * speed;
+    position.y += velocity.y * speed;
+  }
+
+  void init() override{
+    velocity.x = 0.0f;
+    velocity.y = 0.0f;
   }
 ~TransformComponent(){}
 

@@ -3,19 +3,19 @@
 #include "Components.hpp"
 
 
-class PositionComponent: public Component{
+class TransformComponent: public Component{
 
 private:
   int x_pos;
   int y_pos;
 
 public:
-  PositionComponent(){
+  TransformComponent(){
     x_pos = 0;
     y_pos = 0;
   }
 
-  PositionComponent(int x_init, int y_init){
+  TransformComponent(int x_init, int y_init){
     //std::cout << "PositionComponent constructor called" << std::endl;
     //std::cout << x_init << "," << y_init << std::endl;
     x_pos = x_init;
@@ -36,7 +36,7 @@ public:
     x_pos++;
     y_pos++;
   }
-~PositionComponent(){}
+~TransformComponent(){}
 
 };
 #endif

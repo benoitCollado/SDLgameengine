@@ -9,7 +9,6 @@ SDL_Renderer *Game::renderer = nullptr;
 
 Manager manager;
 auto &player(manager.addEntity());
-PositionComponent *position;
 
 Game::Game() {}
 Game::~Game() {}
@@ -40,11 +39,9 @@ void Game::init(const char *title, int posx, int posy, int width, int height,
   }
 
   map = new Map();
-  player.addComponent<PositionComponent>(100,150);
-  position = &player.getComponent<PositionComponent>();
-  std::cout << position->x() << "," << position->y() << std::endl;
+  player.addComponent<TransformComponent>(100,150);
   player.addComponent<SpriteComponent>("images/player.png");
-  std::cout << getComponentTypeID<SpriteComponent>() << std::endl;
+
 }
 
 void Game::handleEvents() {
@@ -63,9 +60,9 @@ void Game::update() {
   count++;
   manager.update();
 
-  if(player.getComponent<PositionComponent>().x() > 200){
+  if(player.getComponent<TransformComponent>().x() > 200){
     player.getComponent<SpriteComponent>().setTexture("images/water.png");
-    player.getComponent<PositionComponent>().setPosition(50,50);
+    player.getComponent<TransformComponent>().setPosition(50,50);
   }
   /*std::cout<<newPlayer.getComponent<PositionComponent>().x() <<  " , " <<
   newPlayer.getComponent<PositionComponent>().y() << std::endl; std::cout <<

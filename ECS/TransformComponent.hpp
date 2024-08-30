@@ -38,8 +38,9 @@ public:
   }
 
   void update() override{
-    position.x += velocity.x * speed;
-    position.y += velocity.y * speed;
+    //std::cout << "Velocity : " << velocity << std::endl;
+    position.x += velocity.x * (float)speed;
+    position.y += velocity.y * (float)speed;
   }
 
   void init() override{

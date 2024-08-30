@@ -82,6 +82,9 @@ class Entity{
       componentArray[getComponentTypeID<T>()] = c;
       componentBitSet[getComponentTypeID<T>()] = true;
 
+      std::cout << "Component added" << std::endl;
+      std::cout << "Component ID : " << getComponentTypeID<T>() << std::endl;
+      
       c->init();
 
       return *c;

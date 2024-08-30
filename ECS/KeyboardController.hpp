@@ -10,22 +10,26 @@ public:
 
   void init() override{
     transform = &entity->getComponent<TransformComponent>();
+    if(transform == nullptr){
+      std::cout << "TransformComponent not found" << std::endl;
+    }
   }
 
   void update() override{
     if(Game::event.type == SDL_KEYDOWN){
+      
       switch(Game::event.key.keysym.sym){
         case SDLK_z:
-          transform->velocity.y = -1;
-          break;
+          transform->velocity.y = -1.f;
+           break;
         case SDLK_s:
-          transform->velocity.y = 1;
+          transform->velocity.y = 1.f;
           break;
         case SDLK_q:
-          transform->velocity.x = -1;
+          transform->velocity.x = -1.f;
           break;
         case SDLK_d:
-          transfrom->velocity.x = 1;
+          transform->velocity.x = 1.f;
           break;
         default:
           break;
@@ -44,13 +48,13 @@ public:
             transform->velocity.x = 0;
             break;
           case SDLK_d:
-            transfrom->velocity.x = 0;
+            transform->velocity.x = 0;
             break;
           default:
             break;
         }
     }
   }
-}
+};
 
 #endif

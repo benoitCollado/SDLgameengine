@@ -43,10 +43,11 @@ void Game::init(const char *title, int posx, int posy, int width, int height,
   player.addComponent<TransformComponent>(100, 150);
   player.addComponent<SpriteComponent>("images/player.png");
   player.addComponent<KeyboardController>();
+   //std::cout << getComponentTypeID<KeyboardController>() << std::endl;
 }
 
 void Game::handleEvents() {
-  
+
   SDL_PollEvent(&event);
   switch (event.type) {
   case SDL_QUIT:

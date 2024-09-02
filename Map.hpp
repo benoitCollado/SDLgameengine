@@ -1,6 +1,8 @@
 #include "Game.hpp"
 #include "TextureManager.hpp"
 
+#include <SDL.h>
+
 class Map{
 
 public:

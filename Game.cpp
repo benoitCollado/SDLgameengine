@@ -2,6 +2,9 @@
 #include "ECS/Components.hpp"
 #include "Map.hpp"
 #include "TextureManager.hpp"
+#include "Collision.hpp"
+
+
 
 Map *map;
 
@@ -10,6 +13,7 @@ SDL_Event Game::event;
 
 Manager manager;
 auto &player(manager.addEntity());
+auto& wall(manager.addEntity());
 
 Game::Game() {}
 Game::~Game() {}
@@ -43,6 +47,12 @@ void Game::init(const char *title, int posx, int posy, int width, int height,
   player.addComponent<TransformComponent>(100, 150);
   player.addComponent<SpriteComponent>("images/player.png");
   player.addComponent<KeyboardController>();
+  player.addComponent<ColliderComponent>("player");
+
+  wall.addComponent<TransformComponent>(300.f, 300.f, 300, 20, 1);
+  wall.addComponent<SpriteComponent>("images/grass.png");
+  wall.addComponent<ColliderComponent>("wall");
+  
    //std::cout << getComponentTypeID<KeyboardController>() << std::endl;
 }
 

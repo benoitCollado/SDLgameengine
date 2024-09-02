@@ -69,7 +69,7 @@ class Entity{
     void destroy() {active = false;}
 
     template <typename T> bool hasComponent() const {
-      return componentBitSet[getComponentID<T>()];
+      return componentBitSet[getComponentTypeID<T>()];
     }
 
     template <typename T, typename... TArgs> T& addComponent(TArgs&&... mArgs){

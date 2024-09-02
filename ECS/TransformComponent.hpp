@@ -13,6 +13,9 @@ public:
 
   int speed = 3; 
 
+  int height = 32;
+  int width = 32;
+  int scale = 1;
   
 
   TransformComponent(){
@@ -21,10 +24,17 @@ public:
   }
 
   TransformComponent(float x_init, float y_init){
-    //std::cout << "PositionComponent constructor called" << std::endl;
-    //std::cout << x_init << "," << y_init << std::endl;
     position.x = x_init;
     position.y = y_init;
+  }
+
+  TransformComponent(float x_init, float y_init, int h, int w, int sc){
+    position.x = x_init;
+    position.y = y_init;
+    height = h;
+    width = w;
+    scale = sc;
+    
   }
 
   float x() {return position.x;}

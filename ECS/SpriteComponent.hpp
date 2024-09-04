@@ -39,8 +39,8 @@ public:
   void update() override{
     destination_Rect.x = (int)transform->position.x;
     destination_Rect.y = (int)transform->position.y;
-    destination_Rect.h = source_Rect.w * transform->scale;
-    destination_Rect.w = source_Rect.h * transform->scale;
+    destination_Rect.h = source_Rect.h * transform->scale;
+    destination_Rect.w = source_Rect.w * transform->scale;
   }
   void draw() override{
     TextureManager::drawTexture(texture, &source_Rect, &destination_Rect);

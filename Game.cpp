@@ -1,10 +1,9 @@
 #include "Game.hpp"
+#include "Collision.hpp"
 #include "ECS/Components.hpp"
 #include "Map.hpp"
 #include "TextureManager.hpp"
-#include "Collision.hpp"
-
-
+#include <SDL_render.h>
 
 Map *map;
 
@@ -13,7 +12,8 @@ SDL_Event Game::event;
 
 Manager manager;
 auto &player(manager.addEntity());
-auto& wall(manager.addEntity());
+auto &wall(manager.addEntity());
+int nb_update = 0;
 
 Game::Game() {}
 Game::~Game() {}
@@ -44,16 +44,16 @@ void Game::init(const char *title, int posx, int posy, int width, int height,
   }
 
   map = new Map();
-  player.addComponent<TransformComponent>(100, 150);
+  player.addComponent<TransformComponent>(100, 150, 32, 32, 1);
   player.addComponent<SpriteComponent>("images/player.png");
   player.addComponent<KeyboardController>();
   player.addComponent<ColliderComponent>("player");
 
-  wall.addComponent<TransformComponent>(300.f, 300.f, 300, 20, 1);
+  wall.addComponent<TransformComponent>(150.f, 150.f, 20, 300, 1);
   wall.addComponent<SpriteComponent>("images/grass.png");
   wall.addComponent<ColliderComponent>("wall");
-  
-   //std::cout << getComponentTypeID<KeyboardController>() << std::endl;
+
+  // std::cout << getComponentTypeID<KeyboardController>() << std::endl;
 }
 
 void Game::handleEvents() {
@@ -71,6 +71,26 @@ void Game::handleEvents() {
 void Game::update() {
   count++;
   manager.update();
+  /*std::cout << "player : "<<
+  player.getComponent<ColliderComponent>().collider.x << std::endl; std::cout <<
+  "player : "<< player.getComponent<ColliderComponent>().collider.y <<
+  std::endl; std::cout << "player : "<<
+  player.getComponent<ColliderComponent>().collider.w << std::endl; std::cout <<
+  "player : "<< player.getComponent<ColliderComponent>().collider.h <<
+  std::endl; std::cout << "wall : "<<
+  wall.getComponent<ColliderComponent>().collider.x << std::endl; std::cout <<
+  "wall : "<< wall.getComponent<ColliderComponent>().collider.y << std::endl;
+  std::cout << "wall : "<< wall.getComponent<ColliderComponent>().collider.w <<
+  std::endl; std::cout << "wall : "<<
+  wall.getComponent<ColliderComponent>().collider.h << std::endl;*/
+  if (Collision::AABB(player.getComponent<ColliderComponent>().collider,
+                      wall.getComponent<ColliderComponent>().collider)) {
+
+    std::cout << "Wall Hit ! " << nb_update << std::endl;
+    nb_update++;
+  }
+
+  // SDL_RenderClear(Game::renderer);
 
   /*std::cout<<newPlayer.getComponent<PositionComponent>().x() <<  " , " <<
   newPlayer.getComponent<PositionComponent>().y() << std::endl; std::cout <<
@@ -83,6 +103,14 @@ void Game::render() {
   // SDL_RenderCopy(renderer, playerText, NULL, &destR);
   map->drawMap();
   manager.draw();
+  SDL_SetRenderDrawColor(renderer, 0, 255, 255, 255);
+  SDL_RenderDrawRect(renderer,
+                     &player.getComponent<ColliderComponent>().collider);
+  SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+  SDL_RenderDrawRect(renderer,
+                     &wall.getComponent<ColliderComponent>().collider);
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+
   SDL_RenderPresent(renderer);
 }
 

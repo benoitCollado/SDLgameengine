@@ -10,6 +10,16 @@ Vector2D::Vector2D(float x, float y) {
   this->y = y;
 }
 
+float Vector2D::norme() { return std::sqrt(x * x + y * y); }
+
+void Vector2D::normalize() {
+  float n = this->norme();
+  if (n != 0) {
+    this->x /= n;
+    this->y /= n;
+  }
+}
+
 Vector2D &Vector2D::Add(const Vector2D &vec) {
   this->x += vec.x;
   this->y += vec.y;
@@ -66,6 +76,54 @@ Vector2D &Vector2D::operator*=(const Vector2D &vec) {
 
 Vector2D &Vector2D::operator/=(const Vector2D &vec) {
   return this->Divide(vec);
+}
+
+Vector2D &Vector2D::operator+(int x){
+  this->x += x;
+  this->y += x;
+  return *this;
+}
+
+Vector2D &Vector2D::operator-(int x){
+  this->x -= x;
+  this->y -= x;
+  return *this;
+}
+
+Vector2D &Vector2D::operator*(int x){
+  this->x *= x;
+  this->y *= x;
+  return *this;
+}
+
+Vector2D &Vector2D::operator/(int x){
+  this->x /= x;
+  this->y /= x;
+  return *this;
+}
+
+Vector2D &Vector2D::operator+(float x){
+  this->x += x;
+  this->y += x;
+  return *this;
+}
+
+Vector2D &Vector2D::operator-(float x){
+  this->x -= x;
+  this->y -= x;
+  return *this;
+}
+
+Vector2D &Vector2D::operator*(float x){
+  this->x *= x;
+  this->y *= x;
+  return *this;
+}
+
+Vector2D &Vector2D::operator/(float x){
+  this->x /= x;
+  this->y /= x;
+  return *this;
 }
 
 std::ostream &operator<<(std::ostream &os, const Vector2D &vec) {

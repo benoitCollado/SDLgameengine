@@ -26,6 +26,7 @@ public:
 
 private: 
   int count = 0;
+  bool growing = true;
   bool isRunning;
   SDL_Window *window;
 

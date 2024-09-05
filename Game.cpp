@@ -71,6 +71,25 @@ void Game::handleEvents() {
 void Game::update() {
   count++;
   manager.update();
+  
+  /*if (count % 90 == 0) {
+    growing = !growing;
+    std::cout << "switch" << std::endl;
+  }
+  if (growing) {
+    player.getComponent<TransformComponent>().scale =
+        1.f + (float)(3.f * (count % 90 / 89.f));
+    std::cout << "growing : " << 1.f + (float)(3.f * (count % 90 / 89.f))
+              << std::endl;
+  } else {
+    player.getComponent<TransformComponent>().scale =
+        4.f - (float)(3.f * (count % 90 / 89.f));
+    std::cout << "not growing : " << 4.f - (float)(3.f * (count % 90 / 89.f))
+              << std::endl;
+    std::cout << "right member : " << (float)(3.f * (count % 90 / 89.f))
+              << std::endl;
+  }*/
+
   /*std::cout << "player : "<<
   player.getComponent<ColliderComponent>().collider.x << std::endl; std::cout <<
   "player : "<< player.getComponent<ColliderComponent>().collider.y <<
@@ -83,11 +102,12 @@ void Game::update() {
   std::cout << "wall : "<< wall.getComponent<ColliderComponent>().collider.w <<
   std::endl; std::cout << "wall : "<<
   wall.getComponent<ColliderComponent>().collider.h << std::endl;*/
-  if (Collision::AABB(player.getComponent<ColliderComponent>().collider,
+  
+   if (Collision::AABB(player.getComponent<ColliderComponent>().collider,
                       wall.getComponent<ColliderComponent>().collider)) {
 
-    std::cout << "Wall Hit ! " << nb_update << std::endl;
-    nb_update++;
+    /*std::cout << "Wall Hit ! " << nb_update << std::endl;
+    nb_update++;*/
   }
 
   // SDL_RenderClear(Game::renderer);
@@ -118,7 +138,7 @@ void Game::clean() {
   SDL_DestroyWindow(window);
   SDL_DestroyRenderer(renderer);
   SDL_Quit();
-  std::cout << "Game cleaned ..." << std::endl;
+   std::cout << "Game cleaned ..." << std::endl;
 }
 
 bool Game::running() { return isRunning; }

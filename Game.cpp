@@ -71,7 +71,7 @@ void Game::handleEvents() {
 void Game::update() {
   count++;
   manager.update();
-  
+
   /*if (count % 90 == 0) {
     growing = !growing;
     std::cout << "switch" << std::endl;
@@ -102,10 +102,10 @@ void Game::update() {
   std::cout << "wall : "<< wall.getComponent<ColliderComponent>().collider.w <<
   std::endl; std::cout << "wall : "<<
   wall.getComponent<ColliderComponent>().collider.h << std::endl;*/
-  
-   if (Collision::AABB(player.getComponent<ColliderComponent>().collider,
-                      wall.getComponent<ColliderComponent>().collider)) {
 
+  if (Collision::AABB(player.getComponent<ColliderComponent>().collider,
+                      wall.getComponent<ColliderComponent>().collider)) {
+    player.getComponent<TransformComponent>().velocity *= -1.f;
     /*std::cout << "Wall Hit ! " << nb_update << std::endl;
     nb_update++;*/
   }
@@ -138,7 +138,7 @@ void Game::clean() {
   SDL_DestroyWindow(window);
   SDL_DestroyRenderer(renderer);
   SDL_Quit();
-   std::cout << "Game cleaned ..." << std::endl;
+  std::cout << "Game cleaned ..." << std::endl;
 }
 
 bool Game::running() { return isRunning; }

@@ -27,15 +27,27 @@ public:
   Vector2D& operator*=(const Vector2D& vec);
   Vector2D& operator/=(const Vector2D& vec);
 
-  Vector2D& operator+(int x);
-  Vector2D& operator-(int x);
-  Vector2D& operator*(int x);
-  Vector2D& operator/(int x);
+  Vector2D& operator+(const int& x);
+  Vector2D& operator-(const int& x);
+  Vector2D& operator*(const int& x);
+  Vector2D& operator/(const int& x);
 
-  Vector2D& operator+(float x);
-  Vector2D& operator-(float x);
-  Vector2D& operator*(float x);
-  Vector2D& operator/(float x);
+  Vector2D& operator+(const float& x);
+  Vector2D& operator-(const float& x);
+  Vector2D& operator*(const float& x);
+  Vector2D& operator/(const float& x);
+
+  Vector2D& operator+=(const int& x);
+  Vector2D& operator-=(const int& x);
+  Vector2D& operator*=(const int& x);
+  Vector2D& operator/=(const int& x);
+
+  Vector2D& operator+=(const float& x);
+  Vector2D& operator-=(const float& x);
+  Vector2D& operator*=(const float& x);
+  Vector2D& operator/=(const float& x);
+
+  void Zero();
 
   friend std::ostream& operator<<(std::ostream& os, const Vector2D& vec);
 

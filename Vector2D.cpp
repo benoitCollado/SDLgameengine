@@ -78,52 +78,106 @@ Vector2D &Vector2D::operator/=(const Vector2D &vec) {
   return this->Divide(vec);
 }
 
-Vector2D &Vector2D::operator+(int x){
+Vector2D &Vector2D::operator+(const int& x){
   this->x += x;
   this->y += x;
   return *this;
 }
 
-Vector2D &Vector2D::operator-(int x){
+Vector2D &Vector2D::operator-(const int& x){
   this->x -= x;
   this->y -= x;
   return *this;
 }
 
-Vector2D &Vector2D::operator*(int x){
+Vector2D &Vector2D::operator*(const int& x){
   this->x *= x;
   this->y *= x;
   return *this;
 }
 
-Vector2D &Vector2D::operator/(int x){
+Vector2D &Vector2D::operator/(const int& x){
   this->x /= x;
   this->y /= x;
   return *this;
 }
 
-Vector2D &Vector2D::operator+(float x){
+Vector2D &Vector2D::operator+(const float& x){
   this->x += x;
   this->y += x;
   return *this;
 }
 
-Vector2D &Vector2D::operator-(float x){
+Vector2D &Vector2D::operator-(const float& x){
   this->x -= x;
   this->y -= x;
   return *this;
 }
 
-Vector2D &Vector2D::operator*(float x){
+Vector2D &Vector2D::operator*(const float& x){
   this->x *= x;
   this->y *= x;
   return *this;
 }
 
-Vector2D &Vector2D::operator/(float x){
+Vector2D &Vector2D::operator/(const float& x){
   this->x /= x;
   this->y /= x;
   return *this;
+}
+
+Vector2D &Vector2D::operator+=(const int& x){
+  this->x += x;
+  this->y += x;
+  return *this;
+}
+
+Vector2D &Vector2D::operator-=(const int& x){
+  this->x -= x;
+  this->y -= x;
+  return *this;
+}
+
+Vector2D &Vector2D::operator*=(const int& x){
+  this->x *= x;
+  this->y *= x;
+  return *this;
+}
+
+Vector2D &Vector2D::operator/=(const int& x){
+  this->x /= x;
+  this->y /= x;
+  return *this;
+}
+
+Vector2D &Vector2D::operator+=(const float& x){
+  this->x += x;
+  this->y += x;
+  return *this;
+}
+
+Vector2D &Vector2D::operator-=(const float& x){
+  this->x -= x;
+  this->y -= x;
+  return *this;
+}
+
+Vector2D &Vector2D::operator*=(const float& x){
+  this->x *= x;
+  this->y *= x;
+  return *this;
+}
+
+Vector2D &Vector2D::operator/=(const float& x){
+  this->x /= x;
+  this->y /= x;
+  return *this;
+}
+
+void Vector2D::Zero(){
+  this->x = 0.0f;
+  this->y = 0.0f;
+
 }
 
 std::ostream &operator<<(std::ostream &os, const Vector2D &vec) {

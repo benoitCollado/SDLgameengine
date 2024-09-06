@@ -9,10 +9,15 @@ Map *map;
 
 SDL_Renderer *Game::renderer = nullptr;
 SDL_Event Game::event;
+std::vector<ColliderComponent *> ColliderComponent::colliders;
 
 Manager manager;
 auto &player(manager.addEntity());
 auto &wall(manager.addEntity());
+auto &tile0(manager.addEntity());
+auto &tile1(manager.addEntity());
+auto &tile2(manager.addEntity());
+
 int nb_update = 0;
 
 Game::Game() {}
@@ -43,7 +48,15 @@ void Game::init(const char *title, int posx, int posy, int width, int height,
     isRunning = false;
   }
 
-  map = new Map();
+  // map = new Map();
+
+  tile0.addComponent<TileComponent>(200, 200, 32, 32, 0);
+  tile0.addComponent<ColliderComponent>("water");
+  tile1.addComponent<TileComponent>(232, 200, 32, 32, 1);
+  tile1.addComponent<ColliderComponent>("grass");
+  tile2.addComponent<TileComponent>(264, 200, 32, 32, 2);
+  tile2.addComponent<ColliderComponent>("dirt");
+
   player.addComponent<TransformComponent>(100, 150, 32, 32, 1);
   player.addComponent<SpriteComponent>("images/player.png");
   player.addComponent<KeyboardController>();
@@ -71,7 +84,8 @@ void Game::handleEvents() {
 void Game::update() {
   count++;
   manager.update();
-
+  
+  
   /*if (count % 90 == 0) {
     growing = !growing;
     std::cout << "switch" << std::endl;
@@ -103,12 +117,12 @@ void Game::update() {
   std::endl; std::cout << "wall : "<<
   wall.getComponent<ColliderComponent>().collider.h << std::endl;*/
 
-  if (Collision::AABB(player.getComponent<ColliderComponent>().collider,
-                      wall.getComponent<ColliderComponent>().collider)) {
-    player.getComponent<TransformComponent>().velocity *= -1.f;
-    /*std::cout << "Wall Hit ! " << nb_update << std::endl;
-    nb_update++;*/
-  }
+  for(auto cc : ColliderComponent::colliders){
+    Collision::AABB(player.getComponent<ColliderComponent>(), *cc);
+  }   
+      /*std::cout << "Wall Hit ! " << nb_update << std::endl;
+      nb_update++;*/
+
 
   // SDL_RenderClear(Game::renderer);
 
@@ -121,7 +135,7 @@ void Game::render() {
   SDL_RenderClear(renderer);
   // this is where we would add stuff to render
   // SDL_RenderCopy(renderer, playerText, NULL, &destR);
-  map->drawMap();
+  // map->drawMap();
   manager.draw();
   SDL_SetRenderDrawColor(renderer, 0, 255, 255, 255);
   SDL_RenderDrawRect(renderer,
@@ -142,3 +156,8 @@ void Game::clean() {
 }
 
 bool Game::running() { return isRunning; }
+
+void Game::Addtile(int id, int x, int y){
+  auto& tile(manager.addEntity());
+  tile.addComponent<TileComponent>(x, y, 32, 32, id);
+}

@@ -24,6 +24,7 @@ public:
   };
 
   void setTexture(const char* path){
+    std::cout << "SpriteComponent::setTexture from : " << path << std::endl;
     texture = TextureManager::loadTexture(path);
   }
 

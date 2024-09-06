@@ -5,6 +5,7 @@
 #include <string>
 #include <SDL.h>
 #include "ECS.hpp"
+#include <vector>
 
 class ColliderComponent : public Component{
 
@@ -12,6 +13,8 @@ public:
   SDL_Rect collider;
   std::string tag;
 
+  static std::vector<ColliderComponent*> colliders;
+  
   TransformComponent* transform;
 
   ColliderComponent(std::string wTag){
@@ -26,6 +29,8 @@ public:
     }
 
     transform = &entity->getComponent<TransformComponent>();
+    
+    ColliderComponent::colliders.push_back(this);
   }
 
   void update() override{

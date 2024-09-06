@@ -13,3 +13,12 @@ bool Collision::AABB(const SDL_Rect &a, const SDL_Rect &b) {
 
   return true;
 }
+
+bool Collision::AABB(const ColliderComponent &colA, const ColliderComponent &colB){
+  if(AABB(colA.collider, colB.collider)){
+    std::cout << colA.tag << " Hit " << colB.tag << std::endl;
+    return true;
+    
+  }
+  return false;
+}
